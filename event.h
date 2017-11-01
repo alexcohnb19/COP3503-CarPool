@@ -16,4 +16,6 @@ class Event{
 		void addDriver(std::string name, std::string phoneNum, int numSeats);
 		void addPassenger(std::string name, std::string phoneNum);//Fits them in car with most avaiable seats
 		void listRides();//Lists Drivers, their passenger and the Avaiable Number of Seats	
+		void deleteDriver(std::string driver);
+		void deletePassenger(std::string passenger);
 }
