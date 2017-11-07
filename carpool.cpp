@@ -2,12 +2,21 @@
 #include <string.h>
 using namespace std;
 
+void viewRides(int eventId){
+  cout << "\n\t\t 1. Eric - 2 empty seats\n";
+  cout << "\n\t\t 2. Bill - 1 empty seats\n";
+  cout << "\n\t\t 3. Robert - 0 empty seats\n";
+  cout << "\n\t\t 4. Timothy - 3 empty seats\n";
+  cout << "\n\t\t 0. Henry ugly god - 0 empty seats\n";
+  cout << "\n\t\t";
+}
+
 void eventOptions(){
   cout << "\n\t\t1. Add Driver\n";
   cout << "\t\t2. Add Passenger\n";
   cout << "\t\t3. View Rides\n";
-  cout << "\t\t4. Empty seats\n";
-  cout << "\t\t5. Return \n";
+  cout << "\t\t4. Return \n";
+  cout << "\t\t\n";
 }
 
 void mainOptions(){
@@ -16,18 +25,65 @@ void mainOptions(){
   cout << "\t3. Done\n";
 }
 
+void addDriver(int eventId){
+  string name = "";
+  string phonenumber = "";
+  int seats = 0;
+
+  cin.ignore();
+  cout << "\n\t\t\tDriver name:\n";
+  getline( cin, name );
+
+  cout << "\n\t\t\tPhone Number:\n";
+  getline( cin, phonenumber );
+
+  cout << "\n\t\t\tNumber of seats:\n";
+  cin >> seats;
+
+  cout << "\t\t\tDriver added successfully\n";
+}
+
+void addPassenger(int eventId){
+  string name = "";
+  string phoneNumber = "";
+  int numSeats;
+
+  cin.ignore();
+  cout << "\n\t\t\tDriver name:\n";
+  getline( cin, name );
+
+  cout << "\n\t\t\tPhone Number:\n";
+  getline( cin, phoneNumber );
+
+  cout << "\n\t\t\tNumber of seats:\n";
+  cin >> numSeats;
+
+  cout << "\t\t\tPassenger added successfully\n";
+}
+
+
 // This method also needs to take in an event
 void eventMenu(int eventId){
   bool stop = false;
 
   while( !stop ) {
-    int actionId;
+    int userInput;
 
     // Print out event details
     eventOptions();
-    cin >> actionId;
+    cin >> userInput;
 
-    eventMenu( actionId );
+    if( userInput == 4 ){
+      stop = true;
+    } else if(userInput == 1){
+      addDriver(eventId);
+    } else if(userInput == 2){
+      addPassenger(eventId);
+    } else if(userInput == 3){
+      viewRides(eventId);
+    } else {
+      cout << "\n\t ----- Invalid input -----\n\n";
+    }
   }
 }
 
