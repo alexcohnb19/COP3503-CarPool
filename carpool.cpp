@@ -42,6 +42,7 @@ void addDriver(int eventId){
   if(seats < 1){
     cout << "\t\t\tFailed to add driver, no available seats.\n"; 
   }else{
+    //put in vector
     new driver(phoneNumber, name, seats);
     cout << "\t\t\tDriver added successfully\n";
   }
@@ -63,6 +64,7 @@ void addPassenger(int eventId){
   cin >> numSeats;
   
   if(//check for open seats){
+    //put passenger in vector and under car with most seats available
     new passenger(phoneNumber, name);
     cout << "\t\t\tPassenger added successfully\n";
   }else{
