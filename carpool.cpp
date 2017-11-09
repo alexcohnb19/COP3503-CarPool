@@ -27,7 +27,7 @@ void mainOptions(){
 
 void addDriver(int eventId){
   string name = "";
-  string phonenumber = "";
+  string phoneNumber = "";
   int seats = 0;
 
   cin.ignore();
@@ -35,12 +35,17 @@ void addDriver(int eventId){
   getline( cin, name );
 
   cout << "\n\t\t\tPhone Number:\n";
-  getline( cin, phonenumber );
+  getline( cin, phoneNumber );
 
   cout << "\n\t\t\tNumber of seats:\n";
   cin >> seats;
-
-  cout << "\t\t\tDriver added successfully\n";
+  if(seats < 1){
+    cout << "\t\t\tFailed to add driver, no available seats.\n"; 
+  }else{
+    //put in vector
+    new driver(phoneNumber, name, seats);
+    cout << "\t\t\tDriver added successfully\n";
+  }
 }
 
 void addPassenger(int eventId){
@@ -55,10 +60,16 @@ void addPassenger(int eventId){
   cout << "\n\t\t\tPhone Number:\n";
   getline( cin, phoneNumber );
 
-  cout << "\n\t\t\tNumber of seats:\n";
+  cout << "\n\t\t\tNumber of seats:\n"; //why is this needed? shouldnt it just be 1 seat?
   cin >> numSeats;
-
-  cout << "\t\t\tPassenger added successfully\n";
+  
+  if(//check for open seats){
+    //put passenger in vector and under car with most seats available
+    new passenger(phoneNumber, name);
+    cout << "\t\t\tPassenger added successfully\n";
+  }else{
+    cout << "\t\t\tFailed to add passenger, no available seats\n";
+  }
 }
 
 
