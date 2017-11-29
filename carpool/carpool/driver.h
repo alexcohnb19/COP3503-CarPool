@@ -1,9 +1,10 @@
-
+#include <vector>
 class Driver{
   private:
     std::string name;
     std::string phoneNum;
-    int seats;
+	std::vector<Passenger> passengers;
+	int seats;
 
   public:
     std::string getName();
@@ -11,6 +12,7 @@ class Driver{
     void setSeats(int seats);
     int getSeats();
     Driver(std::string phoneNum, std::string Name, int seats);
+	void addPassenger();
 };
 
 

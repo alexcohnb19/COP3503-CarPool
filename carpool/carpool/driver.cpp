@@ -3,8 +3,7 @@
 #include <string>
 #include "driver.h"
 
-Driver::Driver(std::string Name, std::string phoneNum, int seats){
-
+Driver::Driver(std::string name, std::string phoneNum,  int seats){
   this->phoneNum = phoneNum;
   this->name = name;
   this->seats = seats;
@@ -25,3 +24,8 @@ int Driver::getSeats(){
 void Driver::setSeats(int seats){
   this->seats = seats;
 }
+
+void addPassenger() {
+
+}
+//LEFT OFF

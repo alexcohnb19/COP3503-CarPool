@@ -26,48 +26,50 @@ void mainOptions(){
   std::cout << "\t3. Done\n";
 }
 
-//void addDriver(Event* event){
-//  std::string name = "";
-//  std::string phoneNumber = "";
-//  int seats = 0;
-//
-//  std::cin.ignore();
-//  std::cout << "\n\t\t\tDriver name:\n";
-//  std::getline(std::cin, name );
-//
-//  std::cout << "\n\t\t\tPhone Number:\n";
-//  std::getline(std::cin, phoneNumber );
-//
-//  std::cout << "\n\t\t\tNumber of seats:\n";
-//  std::cin >> seats;
-//  if(seats < 1){
-//    std::cout << "\t\t\tFailed to add driver, no available seats.\n"; 
-//  }else{
-//    //put in std::vector	
-//	event->addDriver(name, phoneNumber, seats);
-//    std::cout << "\t\t\tDriver added successfully\n";
-//  }
-//}
+void addDriver(Event* event){
+  std::string name = "";
+  std::string phoneNum = "";
+  int seats = 0;
 
-//void addPassenger(Event* event){
-//  std::string name = "";
-//  std::string phoneNumber = "";
-//
-//  std::cin.ignore();
-//  std::cout << "\n\t\t\tDriver name:\n";
-//  std::getline( std::cin, name );
-//
-//  std::cout << "\n\t\t\tPhone Number:\n";
-//  std::getline( std::cin, phoneNumber );
-//  
-//  if(true){
-//    //put passenger in std::vector and under car with most seats available
-//    event->addPassenger(name,phoneNumber);
-//    std::cout << "\t\t\tPassenger added successfully\n";
-//  }else{
-//    std::cout << "\t\t\tFailed to add passenger, no available seats\n";
-//  }
-//}
+  std::cin.ignore();
+  std::cout << "\n\t\t\tDriver name:\n";
+  std::getline(std::cin, name);
+
+  std::cout << "\n\t\t\tPhone Number:\n";
+  std::getline(std::cin, phoneNum);
+
+  std::cout << "\n\t\t\tNumber of seats:\n";
+  std::cin >> seats;
+  if(seats < 1){
+    std::cout << "\t\t\tFailed to add driver, no available seats.\n"; 
+  }else{
+    //put in std::vector	
+	Driver* driver = new Driver(name, phoneNum, seats);
+	event->addDriver(driver);
+
+    std::cout << "\t\t\tDriver added successfully\n";
+  }
+}
+
+void addPassenger(Event* event){
+  std::string name = "";
+  std::string phoneNumber = "";
+
+  std::cin.ignore();
+  std::cout << "\n\t\t\tDriver name:\n";
+  std::getline( std::cin, name );
+
+  std::cout << "\n\t\t\tPhone Number:\n";
+  std::getline( std::cin, phoneNumber );
+  
+  if(true){
+    //put passenger in std::vector and under car with most seats available
+    event->addPassenger(name,phoneNumber);
+    std::cout << "\t\t\tPassenger added successfully\n";
+  }else{
+    std::cout << "\t\t\tFailed to add passenger, no available seats\n";
+  }
+}
 
 
 // This method also needs to take in an event
@@ -84,19 +86,18 @@ void eventMenu(Event* event){
     if( userInput == 4 ){
       stop = true;
     } else if(userInput == 1){
-      // addDriver(event);
+      addDriver(event);
     } else if(userInput == 2){
-      // addPassenger(event);
+      addPassenger(event);
     } else if(userInput == 3){
-      viewRides(event);
+      event->viewRides();
     } else {
       std::cout << "\n\t ----- Invalid input -----\n\n";
     }
   }
 }
 
-void mainMenu(int userInput, std::vector<Event*> events) {
-
+void mainMenu(int userInput, std::vector<Event*>* events) {
 	if (userInput == 1) {
 		std::string name = "";
 		std::string description = "";
@@ -120,24 +121,21 @@ void mainMenu(int userInput, std::vector<Event*> events) {
 		std::cout << "\n\tEvent time:\n";
 		std::getline(std::cin, time);
 
-		// CREATE EVENT KL:AJGKLJ
-
+		// Create events
 		Event* event = new Event(name, date, description, time, location);
-
-		events.push_back(event);
-
+		events->push_back(event);
 		std::cout << "Event successfully created\n";
 	}
 	else if (userInput == 2) {
 		/* SELECT AN EVENT OPTION*/
 		std::cout << "\n\tSelect an event: \n";
-	for (int i = 0; i < events.size(); ++i) {
-		std::cout << "\n\t" << i << "." << (events.at(i))->getName();
+	for (int i = 0; i < events->size(); ++i) {
+		std::cout << "\n\t" << i << ". " << (events->at(i))->getName();
 	}
 	/* User input*/
 	int eventId;
 	std::cin >> eventId;
-	eventMenu(events.at(eventId));
+	eventMenu(events->at(eventId));
 	} else {
     std::cout << "\n\t ----- Invalid input -----\n\n";
   }
@@ -154,7 +152,7 @@ int main(){
     if(userInput == 3 ){
       stop = true;
     } else {
-      mainMenu( userInput,events );
+      mainMenu( userInput,&events);
     }
   }
 }

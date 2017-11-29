@@ -9,6 +9,7 @@ Event::Event(std::string name, std::string date, std::string description, std::s
 	this->description = description;
 	this->time = time;
 	this->location = location;
+	this->drivers = drivers;
 }
 
 void Event::setName(std::string newName) {
@@ -29,6 +30,17 @@ void Event::setLocation(std::string newLocation) {
 
 void Event::setDescription(std::string newDescription) {
 	description = newDescription;
+}
+
+void Event::addDriver(Driver * driver) {
+	drivers.push_back(driver);
+}
+
+
+void Event::viewRides() {
+	for (int i = 0; i < drivers.size(); ++i) {
+		std::cout << drivers.at(i)->getName() << " Num seats: " << drivers.at(i)->getSeats() << std::endl;
+	}
 }
 
 std::string Event::getName() {

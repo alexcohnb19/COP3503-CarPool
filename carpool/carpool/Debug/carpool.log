@@ -1,4 +1,4 @@
 ﻿  carpool.cpp
-c:\users\henry lin\source\repos\carpool\carpool\carpool.cpp(134): warning C4018: '<': signed/unsigned mismatch
-  carpool.vcxproj -> C:\Users\Henry Lin\source\repos\carpool\Debug\carpool.exe
-  carpool.vcxproj -> C:\Users\Henry Lin\source\repos\carpool\Debug\carpool.pdb (Partial PDB)
+c:\users\henry lin\desktop\cop3503-carpool\carpool\carpool\carpool.cpp(132): warning C4018: '<': signed/unsigned mismatch
+  carpool.vcxproj -> C:\Users\Henry Lin\Desktop\COP3503-CarPool\carpool\Debug\carpool.exe
+  carpool.vcxproj -> C:\Users\Henry Lin\Desktop\COP3503-CarPool\carpool\Debug\carpool.pdb (Partial PDB)
