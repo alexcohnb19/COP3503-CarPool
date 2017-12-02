@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #include <iostream>
 #include <string>
 #include "driver.h"
@@ -25,7 +24,12 @@ void Driver::setSeats(int seats){
   this->seats = seats;
 }
 
-void addPassenger() {
-
+bool Driver::addPassenger( Passenger * passenger ) {
+	passengers.push_back(passenger);
+	seats = seats - 1;
+	return true;
 }
-//LEFT OFF
+
+std::vector<Passenger*> Driver::getPassengers(){
+	return passengers;
+}

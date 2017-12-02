@@ -18,7 +18,7 @@ class Event{
 		std::string getTime();
 		std::string getLocation();
 		std::string getDescription();
-		std::vector<Driver*>* getDrivers();
+		std::vector<Driver*> getDrivers();
 		void setName(std::string newName);
 		void setDate(std::string newDate);
 		void setTime(std::string newTime);
@@ -26,7 +26,6 @@ class Event{
 		void setDescription(std::string newDescription);
 		void addDriver(Driver * driver);
 		void viewRides();
-		void addPassenger(Event* event);
-
+		Driver* getDriverWithSeats();
 };
 

@@ -1,9 +1,8 @@
-#include "stdafx.h"
 #include <iostream>
 #include <string>
-#include "passenger.h"
+#include "Passenger.h"
 
-Passenger::Passenger(std::string phoneNum, std::string name) {
+Passenger::Passenger(std::string name, std::string phoneNum) {
 	this->phoneNum = phoneNum;
 	this->name = name;
 }
@@ -15,4 +14,3 @@ std::string Passenger::getName() {
 std::string Passenger::getPhoneNum() {
 	return this->phoneNum;
 }
-
