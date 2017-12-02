@@ -26,6 +26,8 @@ class Event{
 		void setDescription(std::string newDescription);
 		void addDriver(Driver * driver);
 		void viewRides();
+		void printDrivers();
+		void deleteDriver(int id);
 		Driver* getDriverWithSeats();
 };
 

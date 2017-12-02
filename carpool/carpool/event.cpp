@@ -42,10 +42,12 @@ void Event::viewRides() {
 	    return;
 	}else{
 		for (int i = 0; i < drivers.size(); ++i) {
-			std::cout<<"\n\t\t\t" << drivers.at(i)->getName() << "\t\tPhone#: " << drivers.at(i)->getPhoneNum() << "\tNumber of seats: " << drivers.at(i)->getSeats() << std::endl;
-			std::vector<Passenger*> passengers = drivers.at(i)->getPassengers();
-			for(int k = 0; k < passengers.size(); ++k){
-				std::cout<<"\t\t\t\t" << passengers.at(k)->getName() << "\t" << passengers.at(k)->getPhoneNum() << std::endl;
+			if( drivers.at(i)->getSeats() >= 0 ) {
+				std::cout<<"\n\t\t\t" << drivers.at(i)->getName() << "\t\tPhone#: " << drivers.at(i)->getPhoneNum() << "\tNumber of seats: " << drivers.at(i)->getSeats() << std::endl;
+				std::vector<Passenger*> passengers = drivers.at(i)->getPassengers();
+				for(int k = 0; k < passengers.size(); ++k){
+					std::cout<<"\t\t\t\t" << passengers.at(k)->getName() << "\t" << passengers.at(k)->getPhoneNum() << std::endl;
+				}
 			}
 		}
 	}
@@ -85,3 +87,25 @@ std::vector<Driver*> Event::getDrivers(){
 	return drivers;
 }
 
+void Event::printDrivers(){
+	for(int i = 0; i < drivers.size(); ++i){
+		if( drivers.at(i)->getSeats() >= 0 ){
+			std::cout << "\t\t\t"<< i+1 << ". " << drivers.at(i)->getName() << "\n";
+		}
+	}
+}
+
+//Remove driver from list and relocate passengers
+void Event::deleteDriver(int driverId){
+	Driver * driver = drivers.at(driverId);
+	std::vector<Passenger*> passengers = driver->getPassengers();
+	drivers.at(driverId)->setSeats(-1);
+	for(int i = 0; i < passengers.size(); ++i){
+		Driver * driver = this->getDriverWithSeats();
+		if( driver == NULL ){
+			std::cout << "\t\t\t" << passengers.at(i)->getName() << " does not have ride! Need more drivers." << std::endl;
+		} else {
+			driver->addPassenger( passengers.at(i) );
+		}
+	}
+}

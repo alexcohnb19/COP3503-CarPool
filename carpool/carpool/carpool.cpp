@@ -29,9 +29,9 @@ void mainOptions(){
 
 bool isDigit( std::string seats ){
 	for(int i = 0; i < seats.size(); ++i){
-	  bool isDigit = '0' <= seats[i] && seats[i] <= '9';
+	  bool isDigit = ('0' <= seats[i] && seats[i] <= '9');
 	  if( !isDigit ) {
-		  return false;
+	      return false;
 	  }
 	}
 	return true;
@@ -40,7 +40,7 @@ bool isDigit( std::string seats ){
 void addDriver(Event* event){
   std::string name = "";
   std::string phoneNum = "";
-  std::string seats = 0;
+  std::string seats = "";
 
   std::cin.ignore();
   std::cout << "\n\t\t\tDriver Name: ";
@@ -50,22 +50,27 @@ void addDriver(Event* event){
   std::getline(std::cin, phoneNum);
 
   std::cout << "\t\t\tNumber of seats: ";
-  
+ 
   std::cin>>seats;
   
   bool invalidInput = true;
   int intSeats = 0;
-  while(invalidInput){
-	  std::getline(std::cin, seats);
+  while( invalidInput ){
+	  std::getline( std::cin, seats );
 	  if( isDigit( seats )) {
 	      intSeats = std::atoi( seats.c_str() );  
 		  if( intSeats > 0 && intSeats < 7 ){
 		      invalidInput = false;
 
 		  }
+		  else {
+		      std::cout << "\t\t------INVALID INPUT FOR SEAT NUM -----" << std::endl;
+		  }
+	  } else {
+	    std::cout << "\t\t------INVALID INPUT FOR SEAT NUM -----" << std::endl;
 	  }
   }
-  
+
   Driver* driver = new Driver(name, phoneNum, intSeats);
   event->addDriver(driver);
   std::cout << "\n\t\tDriver added successfully\n";
@@ -99,7 +104,7 @@ void addPassenger(Event* event){
   }
 }
 
-void deleteDriver(Event* event){
+void deleteDriver(Event* event, int driverId){
 	
 }
 
@@ -141,7 +146,11 @@ void eventMenu(Event* event){
     } else if(userInput == 2){
       addPassenger(event);
 	} else if(userInput == 3){
-	  deleteDriver(event);
+	  event->printDrivers();
+	  int driverId = 0;
+	  std::cout << "\t\t\t SELECT A DRIVER" << std::endl;
+	  std::cin >> driverId;
+	  event->deleteDriver(driverId-1);
 	} else if(userInput == 4){
 	  deletePassenger(event);
     } else if(userInput == 5){

@@ -5,9 +5,8 @@ class Driver{
   private:
     std::string name;
     std::string phoneNum;
-	std::vector<Passenger*> passengers;
-	int seats;
-
+    std::vector<Passenger*> passengers;
+    int seats;
 
   public:
     std::string getName();
@@ -16,7 +15,7 @@ class Driver{
     int getSeats();
     Driver(std::string phoneNum, std::string Name, int seats);
     bool addPassenger( Passenger * passenger );
-	std::vector<Passenger*> getPassengers();
+    std::vector<Passenger*> getPassengers();
 };
 
 
