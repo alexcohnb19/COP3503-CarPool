@@ -125,16 +125,7 @@ void addPassenger(Event* event){
   }
 }
 
-<<<<<<< HEAD
 //The menu for events
-=======
-void deletePassenger(Event* event){
-	
-}
-
-
-// This method also needs to take in an event
->>>>>>> FinalAdjustments
 void eventMenu(Event* event){
   bool stop = false;
 
@@ -177,7 +168,7 @@ void eventMenu(Event* event){
 	}
 	  event->deleteDriver(intDriverId-1);
 	} else if(userInput == 4){
-	  deletePassenger(event);
+	  /* deletePassenger(event); */
     } else if(userInput == 5){
       event->viewRides();
     } else {
