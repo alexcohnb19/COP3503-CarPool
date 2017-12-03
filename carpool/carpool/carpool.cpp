@@ -4,8 +4,6 @@
 #include "carpool.h"
 
 /* SHIT TO DO
-- EDGE SEATS INPUT
-- DELETE DRIVERS
 - DELETE PASSENGERS
 */
 
@@ -50,8 +48,6 @@ void addDriver(Event* event){
   std::getline(std::cin, phoneNum);
 
   std::cout << "\t\t\tNumber of seats: ";
- 
-  std::cin>>seats;
   
   bool invalidInput = true;
   int intSeats = 0;
@@ -64,10 +60,12 @@ void addDriver(Event* event){
 
 		  }
 		  else {
-		      std::cout << "\t\t------INVALID INPUT FOR SEAT NUM -----" << std::endl;
+		      std::cout << "\t\t------INVALID INPUT: PLEASE PUT IN A SIZE OF 6 OR LESS -----" << std::endl;
+			  std::cout << "\t\t\tNumber of seats: ";
 		  }
 	  } else {
-	    std::cout << "\t\t------INVALID INPUT FOR SEAT NUM -----" << std::endl;
+	    std::cout << "\t\t------INVALID INPUT: NOT AN INTEGER -----" << std::endl;
+		std::cout << "\t\t\tNumber of seats: ";
 	  }
   }
 
@@ -104,28 +102,10 @@ void addPassenger(Event* event){
   }
 }
 
-void deleteDriver(Event* event, int driverId){
+void deletePassenger(Event* event){
 	
 }
 
-void deletePassenger(Event* event){
-	std::string pass;
-	
-	std::cin.ignore();
-	std::cout<<"Who would you like to remove? ";
-	std::getline(std::cin, pass);
-	
-	//Its pointing to a copy of the VECTOR not the original. LUKE FIX
-	for(int i = 0; i < event->getDrivers().size(); ++i){
-		std::vector<Passenger*> passengers = event->getDrivers().at(i)->getPassengers();
-		for(int k = 0; k < event->getDrivers().at(i)->getPassengers().size(); ++k){
-			if(pass == passengers.at(k)->getName()){
-				passengers.erase(passengers.begin()+k);
-			}
-		}
-	}
-	
-}
 
 // This method also needs to take in an event
 void eventMenu(Event* event){
@@ -147,10 +127,28 @@ void eventMenu(Event* event){
       addPassenger(event);
 	} else if(userInput == 3){
 	  event->printDrivers();
-	  int driverId = 0;
-	  std::cout << "\t\t\t SELECT A DRIVER" << std::endl;
-	  std::cin >> driverId;
-	  event->deleteDriver(driverId-1);
+	  std::string driverId;
+	  std::cout << "\t\t\tSelect Driver: ";
+	  
+	  bool invalidInput = true;
+	  int intDriverId = 0;
+	  std::cin.ignore();
+	  while( invalidInput ){
+		std::getline( std::cin, driverId );
+		if( isDigit( driverId )) {
+			intDriverId = std::atoi( driverId.c_str() );  
+			if( intDriverId > 0 && intDriverId <= event->getDrivers().size() ){
+				invalidInput = false;
+			} else {
+				std::cout << "\t\t------INVALID INPUT: PLEASE ENTER A DRIVER NUMBER ON THE LIST -----" << std::endl;
+				std::cout << "\n\t\t\tSelect Driver: ";
+			}
+		} else {
+			std::cout << "\t\t------INVALID INPUT: NOT AN INTEGER -----" << std::endl;
+			std::cout << "\t\t\tSelect Driver: ";
+		}
+	}
+	  event->deleteDriver(intDriverId-1);
 	} else if(userInput == 4){
 	  deletePassenger(event);
     } else if(userInput == 5){
@@ -201,9 +199,30 @@ void mainMenu(int userInput, std::vector<Event*>* events) {
 				std::cout << "\n\t\tTime: " << (events->at(i))->getTime();
 			}
 			std::cout<<"\n\n\tEvent#: ";
-			int eventId;
-			std::cin >> eventId;
-			eventMenu(events->at(eventId-1));
+			std::string eventId;
+
+			bool invalidInput = true;
+			int intEventId = 0;
+			std::cin.ignore();
+			while( invalidInput ){
+				std::getline( std::cin, eventId );
+				if( isDigit( eventId )) {
+					intEventId = std::atoi( eventId.c_str() );  
+					if( intEventId > 0 && intEventId <= events->size() ){
+						invalidInput = false;
+					} else {
+						std::cout << "\t------INVALID INPUT: PLEASE ENTER A EVENT NUMBER ON THE LIST -----" << std::endl;
+						std::cout << "\tEvent#: ";
+					}
+				} else {
+					std::cout << "\t------INVALID INPUT: NOT AN INTEGER -----" << std::endl;
+					std::cout << "\tEvent#: ";
+				}
+			}
+			
+			eventMenu(events->at(intEventId-1));
+			
+			
 		}
 		else {
 			std::cout << "\n\t ----- No listed events -----\n\n";
