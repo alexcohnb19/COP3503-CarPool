@@ -3,12 +3,9 @@
 #include <sstream>
 #include "carpool.h"
 
-/* SHIT TO DO
-- EDGE SEATS INPUT
-- DELETE DRIVERS
-- DELETE PASSENGERS
-*/
 
+// A simple method to display the options once an event is
+// selected.
 void eventOptions(){
   std::cout << "\n\t\t1. Add Driver\n";
   std::cout << "\t\t2. Add Passenger\n";
@@ -18,6 +15,8 @@ void eventOptions(){
   std::cout << "\t\t6. Return \n";
 }
 
+//A simple method that displays the main options at the 
+//start of the program.
 void mainOptions(){
   std::cout << "\t----------------------------\n";
   std::cout << "\n\t1. Add Event\n";
@@ -27,21 +26,31 @@ void mainOptions(){
 
 }
 
+//A method that checks if a string is a string of integers
+//returns true if it is an integer.
 bool isDigit( std::string seats ){
+	//Loop through the string
 	for(int i = 0; i < seats.size(); ++i){
+	  //If the char at a certain index is not an integer,
+	  //break the loop
 	  bool isDigit = ('0' <= seats[i] && seats[i] <= '9');
 	  if( !isDigit ) {
 	      return false;
 	  }
 	}
+
+	//Return true otherwise
 	return true;
 }
 
+//The method used to add a driver to an event
 void addDriver(Event* event){
+  //Initialize variables
   std::string name = "";
   std::string phoneNum = "";
   std::string seats = "";
 
+  //Take in the values
   std::cin.ignore();
   std::cout << "\n\t\t\tDriver Name: ";
   std::getline(std::cin, name);
@@ -55,10 +64,14 @@ void addDriver(Event* event){
   
   bool invalidInput = true;
   int intSeats = 0;
+  
+  //Check to see if the number of the input is valid for number of seats
   while( invalidInput ){
 	  std::getline( std::cin, seats );
+	  //Check if integer for input for seats
 	  if( isDigit( seats )) {
 	      intSeats = std::atoi( seats.c_str() );  
+		  //Ensure seats are not obscenly huge
 		  if( intSeats > 0 && intSeats < 7 ){
 		      invalidInput = false;
 
@@ -71,21 +84,29 @@ void addDriver(Event* event){
 	  }
   }
 
+  //Create a new driver and add them to the drivers vector
+  //on the array.
   Driver* driver = new Driver(name, phoneNum, intSeats);
   event->addDriver(driver);
   std::cout << "\n\t\tDriver added successfully\n";
   std::cout << "\t\t----------------------------\n";
 }
 
+//Method to add passenger to driver's passengers vector
 void addPassenger(Event* event){
+  //Get any driver with empty seats
   Driver * driver = event->getDriverWithSeats();
+  //If there are no availible seats, break the method
   if(event->getDrivers().size()==0){
 	  std::cout<<"\n\t\t----- No rides available-----\n";
 	  return;
   }
+
+  //Initialize variables
   std::string name = "";
   std::string phoneNumber = "";
 
+  //Take in data for passenger
   std::cin.ignore();
   std::cout << "\n\t\t\tPassenger Name: ";
   std::getline( std::cin, name );
@@ -93,8 +114,10 @@ void addPassenger(Event* event){
   std::cout << "\t\t\tPhone Number: ";
   std::getline( std::cin, phoneNumber );
   
+  //Create passenger
   Passenger * passenger = new Passenger( name, phoneNumber );
 
+  //If passenger is successfully added, display a success message
   if( driver->addPassenger( passenger ) ){
     std::cout << "\n\t\tPassenger added successfully\n";
 	std::cout << "\t\t----------------------------\n";
@@ -104,30 +127,7 @@ void addPassenger(Event* event){
   }
 }
 
-void deleteDriver(Event* event, int driverId){
-	
-}
-
-void deletePassenger(Event* event){
-	std::string pass;
-	
-	std::cin.ignore();
-	std::cout<<"Who would you like to remove? ";
-	std::getline(std::cin, pass);
-	
-	//Its pointing to a copy of the VECTOR not the original. LUKE FIX
-	for(int i = 0; i < event->getDrivers().size(); ++i){
-		std::vector<Passenger*> passengers = event->getDrivers().at(i)->getPassengers();
-		for(int k = 0; k < event->getDrivers().at(i)->getPassengers().size(); ++k){
-			if(pass == passengers.at(k)->getName()){
-				passengers.erase(passengers.begin()+k);
-			}
-		}
-	}
-	
-}
-
-// This method also needs to take in an event
+//The menu for events
 void eventMenu(Event* event){
   bool stop = false;
 
@@ -161,7 +161,9 @@ void eventMenu(Event* event){
   }
 }
 
+//The landing menu for the program
 void mainMenu(int userInput, std::vector<Event*>* events) {
+	//Option for creating an event
 	if (userInput == 1) {
 		std::string name = "";
 		std::string description = "";
@@ -190,7 +192,9 @@ void mainMenu(int userInput, std::vector<Event*>* events) {
 		events->push_back(event);
 		std::cout << "\n\tEvent successfully created\n";
 	}
+	//Option for selecting an event
 	else if (userInput == 2) {
+		//Loop through all events and print out relevent data
 		if (events->size() != 0) {
 			std::cout << "\n\tSelect an event: \n";
 			for (int i = 0; i < events->size(); ++i) {

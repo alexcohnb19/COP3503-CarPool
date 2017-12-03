@@ -2,6 +2,7 @@
 #include <string>
 #include "driver.h"
 
+//Constructor
 Driver::Driver(std::string name, std::string phoneNum,  int seats){
   this->phoneNum = phoneNum;
   this->name = name;
