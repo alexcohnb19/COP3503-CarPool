@@ -28,6 +28,7 @@ class Event{
 		void viewRides();
 		void printDrivers();
 		void deleteDriver(int id);
+		void deletePassenger();
 		Driver* getDriverWithSeats();
 };
 

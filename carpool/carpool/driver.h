@@ -16,6 +16,9 @@ class Driver{
     Driver(std::string phoneNum, std::string Name, int seats);
     bool addPassenger( Passenger * passenger );
     std::vector<Passenger*> getPassengers();
+    void deletePassenger();
+    void deletePass(int passengerId);
+    void viewPassengers();
 };
 
 

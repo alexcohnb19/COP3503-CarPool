@@ -1,6 +1,20 @@
 #include <iostream>
-#include <string>
 #include "event.h"
+
+bool isInt( std::string seats ){
+	//Loop through the string
+	for(int i = 0; i < seats.size(); ++i){ //If the char at a certain index is not an integer,
+	  //break the loop
+	  bool isDigit = ('0' <= seats[i] && seats[i] <= '9');
+	  if( !isDigit ) {
+	      return false;
+	  }
+	}
+
+	//Return true otherwise
+	return true;
+}
+
 
 //Constructor
 Event::Event(std::string name, std::string date, std::string description, std::string time, std::string location) {
@@ -48,7 +62,7 @@ void Event::viewRides() {
 		for (int i = 0; i < drivers.size(); ++i) {
 			//Print out relevent info if driver has empty seats
 			if( drivers.at(i)->getSeats() >= 0 ) {
-				std::cout<<"\n\t\t\t" << drivers.at(i)->getName() << "\t\tPhone#: " << drivers.at(i)->getPhoneNum() << "\tNumber of seats: " << drivers.at(i)->getSeats() << std::endl;
+				std::cout<<"\n\t\t\t" << i+1 << ". " << drivers.at(i)->getName() << "\t\tPhone#: " << drivers.at(i)->getPhoneNum() << "\tNumber of seats: " << drivers.at(i)->getSeats() << std::endl;
 				std::vector<Passenger*> passengers = drivers.at(i)->getPassengers();
 				//Print out all passengers of each driver
 				for(int k = 0; k < passengers.size(); ++k){
@@ -126,3 +140,30 @@ void Event::deleteDriver(int driverId){
 	}
 }
 
+
+void Event::deletePassenger(){
+	this->viewRides();
+	std::string driverId = "";
+	bool invalidInput = true;
+	int intDriver = 0;
+	std::cout << "\t\t\tSelect a driver: ";
+	while( invalidInput ){
+		std::getline( std::cin, driverId );
+		//Check if integer for input for seats
+		if( isInt( driverId )) {
+		    intDriver = std::atoi( driverId.c_str() );  
+			//Ensure seats are not obscenly huge
+			if( intDriver > 0 && intDriver <= this->drivers.size() ){
+			    invalidInput = false;
+			} else {
+			     std::cout << "\t\t------INVALID INPUT: NOT IN RANGE----" << std::endl;
+			     std::cout << "\t\t\tDriver Id: ";
+			}
+		} else {
+		    std::cout << "\t\t------INVALID INPUT-----" << std::endl;
+			std::cout << "\t\t\tDriver Id: ";
+		}
+	}
+
+	this->drivers.at(intDriver-1)->deletePassenger();
+}

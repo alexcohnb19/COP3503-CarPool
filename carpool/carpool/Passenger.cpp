@@ -14,3 +14,11 @@ std::string Passenger::getName() {
 std::string Passenger::getPhoneNum() {
 	return this->phoneNum;
 }
+
+void Passenger::setName( std::string name ){
+	this->name = name;
+}
+
+void Passenger::setPhoneNum( std::string phoneNum ){
+	this->phoneNum = phoneNum;
+}

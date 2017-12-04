@@ -168,7 +168,7 @@ void eventMenu(Event* event){
 	}
 	  event->deleteDriver(intDriverId-1);
 	} else if(userInput == 4){
-	  /* deletePassenger(event); */
+	  event->deletePassenger();
     } else if(userInput == 5){
       event->viewRides();
     } else {
